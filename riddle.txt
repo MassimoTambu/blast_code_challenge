@@ -1,0 +1,45 @@
+
+      O     O     O
+26 15 12 26 12 25 12 17
+
+      26 5 2 20 2 1
+
+10 22   10 24 17 26 5
+         O
+     11 12 17 2 16 
+
+C R O C O B O T
+      C H E W E D
+M Y   M A T C H
+N O T E S
+
+CROCOBOT CHEWED MY MATCH NOTES
+
+O 12
+P 13
+Q 14
+R 15
+S 16
+T 17
+U 18
+V 19
+W 20
+X 21
+Y 22
+Z 23
+A 24
+B 25
+C 26
+D 1
+E 2
+F 3
+G 4
+H 5
+I 6
+J 7
+K 8
+L 9
+M 10
+N 11
+
+
