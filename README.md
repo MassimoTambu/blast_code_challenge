@@ -5,6 +5,7 @@
 Programming Language: Typescript with Node.js
 
 Packages:
+
 - typescript
 - @types/node
 - nodemon: watch for changes and automatically restart when a file is changed
@@ -12,6 +13,5 @@ Packages:
 - rimraf: rm -rf compatible with every platform
 - eslint
 - prettier
-
 
 # TODO continue README
