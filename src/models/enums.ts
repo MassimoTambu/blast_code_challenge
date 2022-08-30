@@ -1,3 +1,8 @@
+export enum EventGroups {
+  PlayerAction,
+  MatchStatus,
+}
+
 export enum VictoryKinds {
   BombDefused = 'SFUI_Notice_Bomb_Defused',
   BombExploded = 'SFUI_Notice_Target_Bombed',
