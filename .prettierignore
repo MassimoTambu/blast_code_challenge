@@ -6,3 +6,4 @@ notes.md
 .husky
 .lintstagedrc
 .prettierignore
+.eslintignore

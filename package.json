@@ -8,8 +8,8 @@
     "start-reader": "nodemon --watch src --exec ts-node ./src/read_logs.ts",
     "start:dev": "nodemon",
     "build": "rimraf ./build && tsc",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint ./** --ext .ts",
+    "lint:fix": "eslint ./** --fix",
     "format": "prettier --write .",
     "test": "mocha -r ts-node/register 'tests/**/*.ts'",
     "prepare": "husky install"
