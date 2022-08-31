@@ -57,7 +57,7 @@ describe('Creators tests', () => {
 
       const values = creator.extractValues(s);
 
-      if (values != false) {
+      if (values !== false) {
         testEvent({
           dateTime: values.dateTime,
           logValue: values.logValue,
@@ -81,7 +81,7 @@ describe('Creators tests', () => {
 
       const values = creator.extractValues(s);
 
-      if (values != false) {
+      if (values !== false) {
         testPlayerTeamEvent(values);
       } else {
         assert.fail(
@@ -97,7 +97,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.PlayerSwitchedTeam) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         expect(event.from).to.exist;
         expect(event.to).to.exist;
@@ -116,7 +116,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.PickedUp) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         testPlayerTeamEvent(event);
         expect(event.armament).not.to.be.empty;
@@ -134,7 +134,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.Dropped) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         testPlayerTeamEvent(event);
         expect(event.armament).not.to.be.empty;
@@ -152,7 +152,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.LeftBuyZone) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         testPlayerTeamEvent(event);
         // If it is the last one, check if it is empty
@@ -175,7 +175,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.MoneyChange) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         testPlayerTeamEvent(event);
         expect(event.kind).to.exist;
@@ -199,7 +199,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.Attacked) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         testPlayerTeamEvent(event);
         testPlayerTeamEvent(event.attackedPlayer);
@@ -223,7 +223,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.Killed) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         testPlayerTeamEvent(event);
         testPlayerTeamEvent(event.killedPlayer);
@@ -245,7 +245,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.AssistedKilling) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         testPlayerTeamEvent(event);
         testPlayerTeamEvent(event.killAssistOnPlayer);
@@ -263,7 +263,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.Threw) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         testPlayerTeamEvent(event);
         expect(Object.values(ThrowableArmamentKinds)).to.contain(
@@ -284,7 +284,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.Blinded) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         testPlayerTeamEvent(event);
         testPlayerTeamEvent(event.armamentOwnerPlayer);
@@ -305,7 +305,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.PlayerTriggered) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         testPlayerTeamEvent(event);
         expect(Object.values(PlayerTriggerKinds)).to.contain(event.kind);
@@ -326,7 +326,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.Say) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         testPlayerTeamEvent(event);
         expect(event.message).to.be.not.empty;
@@ -345,7 +345,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.MatchStart) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         expect(event.dateTime).to.exist;
         expect(event.logValue).not.to.be.empty;
         expect(event.map).to.be.string('de_nuke');
@@ -363,7 +363,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.RoundStart) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
       } else {
         assert.fail(
@@ -379,7 +379,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.RoundEnd) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
       } else {
         assert.fail(
@@ -395,7 +395,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.GameOver) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         expect(event.duration.minutes).to.exist.and.not.to.be.NaN;
       } else {
@@ -412,7 +412,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.FinalAccolade) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         expect(event.kind).not.to.be.empty;
         expect(event.player).not.to.be.empty;
@@ -433,7 +433,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.Team) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         expect(Object.values(TeamKinds)).to.contain(event.CSGOTeam);
         expect(event.team).not.to.be.empty;
@@ -451,7 +451,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.RoundVictory) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         expect(Object.values(VictoryKinds)).to.contain(event.kind);
         expect(Object.values(TeamKinds)).to.contain(event.victoriousTeam);
@@ -471,7 +471,7 @@ describe('Creators tests', () => {
     for (const s of TestStrings.GameVictory) {
       const event = creator.createEvent(s);
 
-      if (event != false) {
+      if (event !== false) {
         testEvent(event);
         expect(event.teamWinner).not.to.be.empty;
       } else {
