@@ -1,5 +1,5 @@
+import { EventGroups } from '../../models/enums';
 import { Event } from '../event';
-import { EventGroups } from '../event_groups';
 
 export class GameVictoryEvent implements Event {
   public readonly eventGroup = EventGroups.MatchStatus;

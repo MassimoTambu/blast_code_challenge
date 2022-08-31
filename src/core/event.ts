@@ -1,4 +1,4 @@
-import { EventGroups } from './event_groups';
+import { EventGroups } from '../models/enums';
 
 export abstract class Event {
   public abstract readonly eventGroup: EventGroups;

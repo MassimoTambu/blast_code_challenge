@@ -24,8 +24,8 @@ import { GameVictoryCreator } from '../src/core/match_status/game_victory_creato
 import { TestStrings } from './test_strings';
 import { Event } from '../src/core/event';
 import { PlayerTeamEvent } from '../src/core/player_actions/player_team_event';
-import { EventGroups } from '../src/core/event_groups';
 import {
+  EventGroups,
   KilledKinds,
   MoneyChangeKinds,
   PlayerTriggerKinds,

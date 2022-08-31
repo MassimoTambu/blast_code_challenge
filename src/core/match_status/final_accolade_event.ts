@@ -1,5 +1,5 @@
 import { Event } from '../event';
-import { EventGroups } from '../event_groups';
+import { EventGroups } from '../../models/enums';
 
 export class FinalAccoladeEvent implements Event {
   public readonly eventGroup = EventGroups.MatchStatus;

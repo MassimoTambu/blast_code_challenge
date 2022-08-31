@@ -1,6 +1,6 @@
 import { TeamKinds, ThrowableArmamentKinds } from '../../models/enums';
 import { Event } from '../event';
-import { EventGroups } from '../event_groups';
+import { EventGroups } from '../../models/enums';
 import { PlayerTeamEvent } from './player_team_event';
 
 export class ThrewEvent implements Event, PlayerTeamEvent {

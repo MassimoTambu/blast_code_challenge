@@ -1,7 +1,7 @@
 import { TeamKinds, VictoryKinds } from '../../models/enums';
 import { Score } from '../../models/score';
 import { Event } from '../event';
-import { EventGroups } from '../event_groups';
+import { EventGroups } from '../../models/enums';
 
 export class RoundVictoryEvent implements Event {
   public readonly eventGroup = EventGroups.MatchStatus;
