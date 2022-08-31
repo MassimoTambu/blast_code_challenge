@@ -1,6 +1,7 @@
 build
 logs
 node_modules
+public
 package-lock.json
 notes.md
 .husky
