@@ -14,6 +14,7 @@ import { BlindedCreator } from '../src/core/player_actions/blinded_creator';
 import { PlayerTriggeredCreator } from '../src/core/player_actions/player_triggered_creator';
 import { SayCreator } from '../src/core/player_actions/say_creator';
 import { MatchStartCreator } from '../src/core/match_status/match_start_creator';
+import { RestartRoundCreator } from '../src/core/match_status/restart_round_creators';
 import { RoundStartCreator } from '../src/core/match_status/round_start_creator';
 import { RoundEndCreator } from '../src/core/match_status/round_end_creator';
 import { GameOverCreator } from '../src/core/match_status/game_over_creator';
@@ -349,6 +350,23 @@ describe('Creators tests', () => {
         expect(event.dateTime).to.exist;
         expect(event.logValue).not.to.be.empty;
         expect(event.map).to.be.string('de_nuke');
+      } else {
+        assert.fail(
+          'createEvent method must not fail with this log value: ' + s
+        );
+      }
+    }
+  });
+
+  it('checks if MatchStartCreator correctly removes matched elements', () => {
+    const creator = new RestartRoundCreator();
+
+    for (const s of TestStrings.RestartRound) {
+      const event = creator.createEvent(s);
+
+      if (event !== false) {
+        expect(event.dateTime).to.exist;
+        expect(event.logValue).not.to.be.empty;
       } else {
         assert.fail(
           'createEvent method must not fail with this log value: ' + s

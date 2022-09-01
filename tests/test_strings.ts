@@ -258,6 +258,11 @@ export class TestStrings {
     '11/28/2021 - 20:41:10: World triggered "Match_Start" on "de_nuke"',
     '11/28/2021 - 20:41:11: World triggered "Match_Start" on "de_nuke"',
   ];
+  static readonly RestartRound = [
+    '11/28/2021 - 20:27:22: World triggered "Restart_Round_(1_second)"',
+    '11/28/2021 - 20:41:09: World triggered "Restart_Round_(1_second)"',
+    '11/28/2021 - 20:41:10: World triggered "Restart_Round_(1_second)"',
+  ];
   static readonly FailingMatchStart = [
     '"Match_Start" on "de_nuke" foo bar',
     'orld triggered "Match_Start" on "de_nuke"',

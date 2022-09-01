@@ -80,6 +80,12 @@ describe('Regex tests', () => {
     );
   });
 
+  it('checks if RestartRound regex works as expected', () => {
+    TestStrings.RestartRound.map((s) =>
+      expect(s).to.match(Regexes.RestartRound)
+    );
+  });
+
   it('checks if RoundStart regex works as expected', () => {
     TestStrings.RoundStart.map((s) => expect(s).to.match(Regexes.RoundStart));
   });
