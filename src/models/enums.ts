@@ -45,7 +45,7 @@ export enum HitGroupKinds {
 
 export enum KilledKinds {
   Headshot = 'headshot',
-  HeashotPenetrated = 'headshot penetrated',
+  HeadshotPenetrated = 'headshot penetrated',
   Penetraded = 'penetrated',
   ThroughSmoke = 'throughsmoke',
 }
