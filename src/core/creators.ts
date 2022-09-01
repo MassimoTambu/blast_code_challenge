@@ -4,6 +4,7 @@ import { FinalAccoladeCreator } from './match_status/final_accolade_creator';
 import { GameOverCreator } from './match_status/game_over_creator';
 import { GameVictoryCreator } from './match_status/game_victory_creator';
 import { MatchStartCreator } from './match_status/match_start_creator';
+import { RestartRoundCreator } from './match_status/restart_round_creators';
 import { RoundEndCreator } from './match_status/round_end_creator';
 import { RoundStartCreator } from './match_status/round_start_creator';
 import { RoundVictoryCreator } from './match_status/round_victory_creator';
@@ -34,6 +35,7 @@ const BLINDED_CREATOR = new BlindedCreator();
 const PLAYER_TRIGGERED_CREATOR = new PlayerTriggeredCreator();
 const SAY_CREATOR = new SayCreator();
 const MATCH_START_CREATOR = new MatchStartCreator();
+const RESTART_ROUND_CREATOR = new RestartRoundCreator();
 const ROUND_START_CREATOR = new RoundStartCreator();
 const ROUND_END_CREATOR = new RoundEndCreator();
 const GAME_OVER_CREATOR = new GameOverCreator();
@@ -57,6 +59,7 @@ export const CREATORS: Creator<Event>[] = [
   BLINDED_CREATOR,
   PLAYER_TRIGGERED_CREATOR,
   MATCH_START_CREATOR,
+  RESTART_ROUND_CREATOR,
   ROUND_START_CREATOR,
   ROUND_END_CREATOR,
   GAME_OVER_CREATOR,
