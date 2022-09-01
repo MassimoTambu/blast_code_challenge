@@ -30,7 +30,7 @@ Starts with Player model
 | purchased "item_assaultsuit" | it is better to use "money change" due to money details | `^.*purchased.*$` |
 | money change 16000-1000 = $15000 (tracked) (purchase: item_assaultsuit) | buy: similar to "purchased" but with money log | `money change (\d*)(\+)(\d*) = \$(\d*) \(tracked\)$|money change (\d*)(-)(\d*) = \$(\d*).*\(purchase: (.*)\)$` |
 | money change 50+300 = $350 (tracked) | +300 for kills, +X for round won or lost in a specific way (like Team ACE) | `^.*money change \d*\+\d*.*$` |
-| [1175 -911 -408] attacked "apEX<25><STEAM_1:1:14739219><CT>" [2504 -344 -353] with "ak47" (damage "33") (damage_armor "0") (health "67") (armor "0") (hitgroup "chest") |  | `attacked "(.*)<(\d*)><(.*)><(.*)>".*with "(.*)" \(damage "(\d*)"\) \(damage_armor "(\d*)"\) \(health "(\d*)"\) \(armor "(\d*)"\) \(hitgroup "(.*)"\)` |
+| [1175 -911 -408] attacked "apEX<25><STEAM_1:1:14739219><CT>" [2504 -344 -353] with "ak47" (damage "33") (damage_armor "0") (health "67") (armor "0") (hitgroup "chest") | the gun name "inferno" is referred to molotov | `attacked "(.*)<(\d*)><(.*)><(.*)>".*with "(.*)" \(damage "(\d*)"\) \(damage_armor "(\d*)"\) \(health "(\d*)"\) \(armor "(\d*)"\) \(hitgroup "(.*)"\)` |
 | [1986 -1933 -416] killed "electronic<31><STEAM_1:1:41889689><TERRORIST>" [169 -2145 -352] with "m4a1_silencer" | | `killed "(.*)<(\d*)><(.*)><(.*)>".*with "(.*)" \((.*)\)|killed "(.*)<(\d*)><(.*)><(.*)>".*with "(.*)"` |
 | assisted killing "s1mple<30><STEAM_1:1:36968273><TERRORIST>" |  | `assisted killing "(.*)<(\d*)><(.*)><(.*)>"` |
 | 11/28/2021 - 21:03:55: "b1t<35><STEAM_1:0:143170874><TERRORIST>" threw flashbang [505 -1170 21] flashbang entindex 580) | for flashbangs there is a entindex (id) to match with "blinded for" action | `threw (.*) \[.*\] .*entindex (\d*)\)$|threw (.*) \[` |
@@ -79,30 +79,76 @@ Starts with `"[FACEIT]"` or `[FACEIT^]`, watch out for strange chars. No logs ar
 
 
 
-## Analysis
+## Statistics
 
-NOTES:
-- every player must have their team color
+Side notes:
 - bots and spectators are excluded
+
+### Globals
+
 - Match duration
 - Player with more kills
-- Player with more deaths (maybe)
 - Player with more money
-- Favourite gun
-- Headshot
-- Rateo kill/headshot
-- Player deaths per round
+- Hit counter
+   - Total | Fatal headshots
+   - body 
+   - neck
+   - chest
+   - stomach
+   - left arm
+   - right arm
+   - left leg
+   - right leg
 - MVP
-- Rounds won per bomb placement
-- Rounds won per team ace
-- Headshot percentage
+- Rounds won per bomb placement (with list of rounds)
+- Rounds won per bomb defused (with list of rounds)
+- Rounds won per team ace (with list of rounds)
+- Most bought gun
+
+### Player
+
+- Most bought gun
+- Damage counter from hit dealt
+   - Total | Fatal headshots
+   - body 
+   - neck
+   - chest
+   - stomach
+   - left arm
+   - right arm
+   - left leg
+   - right leg
+- Damage counter from hit sustained
+   - Total | Fatal headshots
+   - body 
+   - neck
+   - chest
+   - stomach
+   - left arm
+   - right arm
+   - left leg
+   - right leg
 - KDA
+- Kill/headshot Ratio
+- Headshot percentage
+- Number of defused bombs
+- Number of planted bombs
+- Total time with bomb
 - Money spent per round
 - Money earned per team
 - Smokes used per round
 - Flashbang used per round
-- Blinded duration
+- Blinded duration dealt
+- Blinded duration sustained
+- Damages from molotov dealt
+- Damages from molotov sustained
 - Bombs disarmed
 - Bombs exploded
-- Seconds with bomb per round
-- Seconds with bomb total
+
+
+### Round
+
+- Longest round
+- Shortest round
+
+TODO
