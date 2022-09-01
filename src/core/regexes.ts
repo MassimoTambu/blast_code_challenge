@@ -83,6 +83,8 @@ export class Regexes {
   /** groups: map */
   static readonly MatchStart = /World triggered "Match_Start" on "(.*)"$/;
   /** no groups */
+  static readonly RestartRound = /World triggered "Restart_Round_\(.*?\)"/;
+  /** no groups */
   static readonly RoundStart = /World triggered "Round_Start"$/;
   /** no groups */
   static readonly RoundEnd = /World triggered "Round_End"$/;

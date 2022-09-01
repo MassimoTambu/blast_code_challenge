@@ -43,10 +43,10 @@ Starts with Player model
 
 | Type                        | Comment         | Regex              |
 |-----------------------------|-----------------|--------------------|
-| "Match_Start" on "de_nuke"  | I need to take the last one to determine when the match starts | `World triggered "Match_Start" on "(.*)"$` |
+| "Match_Start" on "de_nuke"  | I currently analyze it but it is not useful | `World triggered "Match_Start" on "(.*)"$` |
 | "Round_Start"               | I need to take rounds in consideration when the last "Match_Start" event is written and discard them when there is no "Round_End" counterpart | `^.*World triggered "Round_Start"$` |
 | "Round_End"                 |                 | `World triggered "Round_End"$` |
-| "Restart_Round_(1_second)"  | No useful       |                    |
+| "Restart_Round_(1_second)"  | I need to take the last one to determine when the match starts | `World triggered "Restart_Round_\(.*?\)"` |
 | "Game_Commencing"           | No useful       |                    |
 | "Game Over: competitive 1092904694 de_nuke score 6:16 after 50 min" | | `Game Over:.* score \d*:\d* after (\d*) min$` |
 | ACCOLADE, FINAL: {burndamage},	misutaaa<5>,	VALUE: 52.000000,	POS: 2,	SCORE: 7.070709 |  | `ACCOLADE, FINAL: \{(.*?)\},	(.*?)<\d*>,	VALUE: (\d*.\d*),	POS: (\d*),	SCORE: (\d*.\d*)$` |
