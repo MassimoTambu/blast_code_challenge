@@ -86,9 +86,9 @@ Side notes:
 
 ### Globals
 
-- Match duration
-- Player with more kills
-- Player with more money
+- Match final results and duration
+- Player with the most kills
+- Player with the most money
 - Hit counter
    - Total | Fatal headshots
    - body 
@@ -103,7 +103,7 @@ Side notes:
 - Rounds won per bomb placement (with list of rounds)
 - Rounds won per bomb defused (with list of rounds)
 - Rounds won per team ace (with list of rounds)
-- Most bought gun
+- List of armaments bought
 
 ### Player
 
@@ -129,26 +129,15 @@ Side notes:
    - left leg
    - right leg
 - KDA
-- Kill/headshot Ratio
-- Headshot percentage
-- Number of defused bombs
-- Number of planted bombs
-- Total time with bomb
-- Money spent per round
-- Money earned per team
-- Smokes used per round
-- Flashbang used per round
-- Blinded duration dealt
-- Blinded duration sustained
-- Damages from molotov dealt
-- Damages from molotov sustained
-- Bombs disarmed
-- Bombs exploded
-
+- Kill/headshot Ratio percentage
+- Headshot ratio percentage
+- Number of defused bombs, number of planted bombs and how many were exploded
+- Blinded duration dealt and sustained
+- Damages from molotov dealt and sustained
 
 ### Round
 
 - Longest round
 - Shortest round
-
-TODO
+- Money spent per round
+- Smokes, flashbangs and molotov used per round
