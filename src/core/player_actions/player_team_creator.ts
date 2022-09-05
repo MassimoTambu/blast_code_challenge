@@ -20,8 +20,8 @@ export class PlayerTeamCreator extends Creator<PlayerTeamEvent> {
 
     if (regexRes === false) return false;
 
-    const name = regexRes[2];
-    const steamID = regexRes[4];
+    const name = regexRes[1];
+    const steamID = regexRes[3];
     const team = enumFromStringValue(TeamKinds, regexRes[4]);
 
     if (team === undefined) return false;
