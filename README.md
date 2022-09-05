@@ -1,5 +1,7 @@
 # Blast Code Challenge
 
+TODO how to setup repository
+
 ## Code challenge description
 
 YOUR CHALLENGE:

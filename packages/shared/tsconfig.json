@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "models"
+  },
+  "exclude": ["build", "logs", "node_modules", "server/tests"]
+}

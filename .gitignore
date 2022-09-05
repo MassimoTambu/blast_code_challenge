@@ -1,10 +1,11 @@
 # Build
-build
+packages/client/build
+packages/server/build
 
 # Logs
-logs/*
+packages/server/logs/*
 # Do NOT ignore original log file
-!logs/NAVIvsVitaGF-Nuke.txt
+!packages/server/logs/NAVIvsVitaGF-Nuke.txt
 *.log
 npm-debug.log*
 yarn-debug.log*

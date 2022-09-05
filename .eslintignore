@@ -2,9 +2,4 @@ node_modules
 build
 public
 logs
-*.md
-*.txt
-*.css
 *.d.ts
-*.js
-*.json
