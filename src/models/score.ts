@@ -1,4 +1,4 @@
 export interface Score {
-  CT: number;
-  Terrorist: number;
+  readonly CT: number;
+  readonly Terrorist: number;
 }

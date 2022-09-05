@@ -1,5 +1,5 @@
 export interface Duration {
-  seconds?: number;
-  minutes?: number;
-  hours?: number;
+  readonly seconds?: number;
+  readonly minutes?: number;
+  readonly hours?: number;
 }

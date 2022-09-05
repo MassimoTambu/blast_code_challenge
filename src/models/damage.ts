@@ -1,8 +1,8 @@
 import { HitGroupKinds } from './enums';
 
 export interface Damage {
-  armament: string;
-  damageHealth: number;
+  readonly armament: string;
+  readonly damageHealth: number;
   /**
    * For some reason, damage_armor logs have 1 unit number less than the armor logs results:
    *
@@ -10,8 +10,8 @@ export interface Damage {
    *
    * "damage_armor" should be 10
    */
-  damageArmor: number;
-  remainingHealth: number;
-  remainingArmor: number;
-  hitgroup: HitGroupKinds;
+  readonly damageArmor: number;
+  readonly remainingHealth: number;
+  readonly remainingArmor: number;
+  readonly hitgroup: HitGroupKinds;
 }
