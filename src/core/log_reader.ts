@@ -3,9 +3,10 @@ import * as readline from 'readline';
 import path from 'path';
 import { CREATORS } from './creators';
 import { Event } from './event';
+import { GameData } from './game_data';
 
 export class LogReader {
-  private readonly unanalyzedLogsFileName = 'unanalyzedLogs.txt';
+  private readonly unanalyzedLogsFileName = 'unanalyzed_logs.txt';
   private readonly logsFileName = 'NAVIvsVitaGF-Nuke.txt';
 
   private readonly logFolderPath = path.join(__dirname, '..', '..', 'logs');
@@ -15,7 +16,7 @@ export class LogReader {
     this.unanalyzedLogsFileName
   );
 
-  public read(): void {
+  public async read(): Promise<GameData> {
     const logsReadableStream = fs.createReadStream(this.logsPath, 'utf8');
     // Reads line per line
     const logsReadLine = readline.createInterface({
@@ -32,7 +33,8 @@ export class LogReader {
       }
     );
 
-    logsReadLine.on('line', (line) => {
+    const events = [];
+    for await (const line of logsReadLine) {
       let newEvent: Event | false | undefined;
 
       for (const creator of CREATORS) {
@@ -43,9 +45,13 @@ export class LogReader {
 
       if (!newEvent) {
         unanalyzedLogsWritableStream.write(line.toString() + '\n');
+        continue;
       }
-    });
 
+      events.push(newEvent);
+    }
     logsReadLine.on('close', () => unanalyzedLogsWritableStream.close());
+
+    return new GameData(events);
   }
 }

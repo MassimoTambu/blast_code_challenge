@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "test": "mocha -r ts-node/register 'tests/**/*.ts'",
     "prepare": "husky install",
+    "start-server": "nodemon",
     "start-react": "react-scripts start",
     "build-react": "react-scripts build",
     "test-react": "react-scripts test --env=jsdom",
