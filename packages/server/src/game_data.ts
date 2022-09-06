@@ -24,6 +24,7 @@ import { PlayerTeamEvent } from './player_actions/player_team_event';
 import { PlayerTriggeredEvent } from './player_actions/player_triggered_event';
 import { PlayerWithKillsStats } from 'shared/models/stats/player_with_kills_stats';
 import { PlayerWithMoneyStats } from 'shared/models/stats/player_with_money_stats';
+import { RoundWonConditionsStats } from 'shared/models/stats/round_won_conditions_stats';
 import {
   HitCounterStats,
   HitCounterStatsWithFatalHeadshots,
@@ -238,7 +239,7 @@ export class GameData {
    * Follows CS:GO MVP rules to calculate MVP https://counterstrike.fandom.com/wiki/MVP
    * MVP goes to one of the players who won the round following eliminations, bomb defused and bomb planted and exploded
    */
-  public getMVP(): MVPStats | undefined {
+  public getMVP(): MVPStats {
     const players: { name: string; points: number }[] = [];
 
     for (const r of this.eventsPerRound) {
@@ -330,7 +331,7 @@ export class GameData {
     }
 
     // * I should check if more than one player has the same points and find another way to determine who is the MVP, but for now, it is fine
-    return _.orderBy(players, (p) => p.points, 'desc').at(0);
+    return _.orderBy(players, (p) => p.points, 'desc')[0];
   }
 
   private upsertMVPList(
@@ -362,12 +363,14 @@ export class GameData {
     ).at(0);
   }
 
-  public getRoundWonConditions(): { [key in VictoryKinds]: number } {
+  public getRoundWonConditions(): RoundWonConditionsStats {
     const roundVictoryEvents = (this.events.filter(
       (e) => e instanceof RoundVictoryEvent
     ) ?? []) as RoundVictoryEvent[];
-    return _.countBy(roundVictoryEvents, (e) => e.kind) as {
-      [key in VictoryKinds]: number;
+    return {
+      counters: _.countBy(roundVictoryEvents, (e) => e.kind) as {
+        [key in VictoryKinds]: number;
+      },
     };
   }
 
