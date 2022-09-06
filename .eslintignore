@@ -3,3 +3,5 @@ build
 public
 logs
 *.d.ts
+*.json
+*.css
