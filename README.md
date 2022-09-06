@@ -1,7 +1,5 @@
 # Blast Code Challenge
 
-TODO how to setup repository
-
 ## Code challenge description
 
 YOUR CHALLENGE:
@@ -28,16 +26,48 @@ There might be multiple “Match_Start” events, but only the last one starts t
 
 ## Info
 
-Programming Language: Typescript with Node.js
+### Client
+
+Typescript with React.js
 
 Packages:
 
 - typescript
 - @types/node
+- express
+- lodash
+- mocha & chai for tests
 - nodemon: watch for changes and automatically restart when a file is changed
 - ts-node: runs typescript code without having to wait for it be compiled
 - rimraf: rm -rf compatible with every platform
 - eslint
 - prettier
 
-# TODO continue README
+### Server
+
+Typescript with Node.js and Express.js
+
+Packages:
+
+- typescript
+- @types/node
+- express
+- lodash
+- mocha & chai for tests
+- nodemon: watch for changes and automatically restart when a file is changed
+- ts-node: runs typescript code without having to wait for it be compiled
+- rimraf: rm -rf compatible with every platform
+- eslint
+- prettier
+
+## Setup
+
+TODO how to setup repository
+
+## How it works
+
+To classify every useful information read from the log of the game, I create a structure divided into Event and Creator.
+The **Event** is an abstract class which identify a log line. Every subclass which implements Event must define its fields into a constructor and add (if any) its own specialized fields. As instance, **DroppedEvent** class implements Event field (and PlayerTeamEvent too) and adds its field _armament_. This is a kind of rapresentation in data class of the gathered data.
+The **Creator** abstract class, on the other hand, defines how to create the Event. For each Event we have a specialized creator; as instance, for DroppedEvent we have the **DroppedCreator** class which extends Creator and defines which regex to use, how to extract the values from the log line (extractValues method) and how to create the event (createEvent method). If it fails and returns _false_, it means the log line passed to this creator is not elegible to get that specific event.
+<br>
+During the server initialization, the log file will be read and every line will be scanned by every creator defined. The unanalyzed lines will be written in a separate log file under _logs_ folder.
