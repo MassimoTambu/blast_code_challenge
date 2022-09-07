@@ -1,7 +1,9 @@
-import { VictoryKinds } from '../enums';
+import { TeamKinds, VictoryKinds } from '../enums';
 
 export interface RoundWonConditionsStats {
-  counters: RoundWonConditions;
+  rounds: {
+    number: number;
+    winnerCSGOTeam: TeamKinds;
+    wonCondition: VictoryKinds;
+  }[];
 }
-
-type RoundWonConditions = { [key in VictoryKinds]: number };

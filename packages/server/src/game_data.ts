@@ -363,17 +363,6 @@ export class GameData {
     ).at(0);
   }
 
-  public getRoundWonConditions(): RoundWonConditionsStats {
-    const roundVictoryEvents = (this.events.filter(
-      (e) => e instanceof RoundVictoryEvent
-    ) ?? []) as RoundVictoryEvent[];
-    return {
-      counters: _.countBy(roundVictoryEvents, (e) => e.kind) as {
-        [key in VictoryKinds]: number;
-      },
-    };
-  }
-
   public getListOfArmamentBought(playerName?: string): ArmamentStats[] {
     let armamentsBought = _(this.events).filter(
       (e) =>
@@ -682,6 +671,33 @@ export class GameData {
     return {
       longestRound,
       shortestRound,
+    };
+  }
+
+  public getRoundWonConditions(): RoundWonConditionsStats {
+    return {
+      rounds: _(this.eventsPerRound)
+        .map<{
+          number: number;
+          winnerCSGOTeam: TeamKinds;
+          wonCondition: VictoryKinds;
+        }>((r) => {
+          const roundVictoryEvent = _(r.events)
+            .filter((e) => e instanceof RoundVictoryEvent)
+            .value()
+            .at(0) as RoundVictoryEvent | undefined;
+
+          if (_.isUndefined(roundVictoryEvent)) {
+            throw new Error('No RoundVictoryEvent found in round ' + r.number);
+          }
+
+          return {
+            number: r.number,
+            winnerCSGOTeam: roundVictoryEvent.victoriousTeam,
+            wonCondition: roundVictoryEvent.kind,
+          };
+        })
+        .value(),
     };
   }
 
