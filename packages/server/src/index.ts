@@ -31,6 +31,9 @@ app.get('/statistics', async (_: Request, res: Response<GameDataResponse>) => {
     mvp: gameData.getMVP(),
     roundWonConditions: gameData.getRoundWonConditions(),
     players: await gameData.getPlayersStats(),
+    roundsResults: gameData.getGeneralRoundStats(),
+    moneySpentPerRound: gameData.getMoneySpentPerRound(),
+    throwableArmamentUsedPerRound: gameData.getThrowableArmamentsUsedPerRound(),
   };
 
   res.send(gameDataResponse);
