@@ -53,6 +53,7 @@ import { LeftBuyZoneEvent } from './player_actions/left_buy_zone_event';
 import { SayEvent } from './player_actions/say_event';
 import { PickedUpEvent } from './player_actions/picked_up_event';
 import { Round } from './round';
+import { Score } from 'shared/models/score';
 
 export class GameData {
   // All events from the match start
@@ -680,7 +681,10 @@ export class GameData {
         .map<{
           number: number;
           winnerCSGOTeam: TeamKinds;
+          teamPlayingCT: string;
+          teamPlayingTerrorists: string;
           wonCondition: VictoryKinds;
+          score: Score;
         }>((r) => {
           const roundVictoryEvent = _(r.events)
             .filter((e) => e instanceof RoundVictoryEvent)
@@ -691,10 +695,48 @@ export class GameData {
             throw new Error('No RoundVictoryEvent found in round ' + r.number);
           }
 
+          const teamEvents = _(r.events)
+            .filter((e) => e instanceof TeamEvent)
+            .value() as TeamEvent[] | undefined;
+
+          const firstTeamEvent = teamEvents?.at(0);
+          const secondTeamEvent = teamEvents?.at(1);
+
+          if (_.isUndefined(firstTeamEvent) || _.isUndefined(secondTeamEvent)) {
+            throw new Error(
+              'first or second TeamEvent not found in round ' + r.number
+            );
+          }
+          if (
+            [firstTeamEvent.CSGOTeam, secondTeamEvent.CSGOTeam].some(
+              (t) => t === TeamKinds.Spectator || t === TeamKinds.Unassigned
+            )
+          ) {
+            throw new Error(
+              'first or second TeamEvent have an invalid CSGOTeam in round ' +
+                r.number
+            );
+          }
+          if (firstTeamEvent.CSGOTeam === secondTeamEvent.CSGOTeam) {
+            throw new Error(
+              'first and second TeamEvent have the same CSGOTeam in round ' +
+                r.number
+            );
+          }
+
           return {
             number: r.number,
             winnerCSGOTeam: roundVictoryEvent.victoriousTeam,
+            teamPlayingCT:
+              firstTeamEvent.CSGOTeam === TeamKinds.CT
+                ? firstTeamEvent.team
+                : secondTeamEvent.team,
+            teamPlayingTerrorists:
+              firstTeamEvent.CSGOTeam === TeamKinds.Terrorist
+                ? firstTeamEvent.team
+                : secondTeamEvent.team,
             wonCondition: roundVictoryEvent.kind,
+            score: roundVictoryEvent.score,
           };
         })
         .value(),
