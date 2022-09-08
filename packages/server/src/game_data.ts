@@ -54,6 +54,7 @@ import { SayEvent } from './player_actions/say_event';
 import { PickedUpEvent } from './player_actions/picked_up_event';
 import { Round } from './round';
 import { Score } from 'shared/models/score';
+import { MatchStartEvent } from './match_status/match_start_event';
 
 export class GameData {
   // All events from the match start
@@ -128,11 +129,22 @@ export class GameData {
       (e) => e instanceof GameVictoryEvent
     );
     const gameOverEvent = this.events.find((e) => e instanceof GameOverEvent);
+    const matchStartEvent = _(this.events).findLast(
+      (e) => e instanceof MatchStartEvent
+    ) as MatchStartEvent | undefined;
 
-    if (_.isUndefined(gameVictoryEvent) || _.isUndefined(gameOverEvent)) {
-      throw new Error('GameVictoryEvent | GameOverEvent not found');
+    if (
+      _.isUndefined(gameVictoryEvent) ||
+      _.isUndefined(gameOverEvent) ||
+      _.isUndefined(matchStartEvent)
+    ) {
+      throw new Error(
+        'GameVictoryEvent, GameOverEvent or MatchStartEvent not found'
+      );
     }
 
+    const map = matchStartEvent.map;
+    const startDate = this.events[0].dateTime.toLocaleString();
     const duration: Duration = _.isUndefined(gameOverEvent)
       ? {}
       : (gameOverEvent as GameOverEvent).duration;
@@ -141,6 +153,8 @@ export class GameData {
       : (gameVictoryEvent as GameVictoryEvent).teamWinner;
 
     return {
+      map,
+      startDate,
       duration,
       teamWinner,
     };

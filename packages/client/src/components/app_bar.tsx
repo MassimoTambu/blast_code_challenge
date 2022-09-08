@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import _ from 'lodash';
 import { useContext } from 'react';
-import { GameDataContext } from '../App';
+import { GameDataContext } from '../providers';
 
 export default function BlastAppBar() {
   const gameData = useContext(GameDataContext);
@@ -31,9 +31,23 @@ export default function BlastAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Team {teamWinner} won {score}
-          </Typography>
+          <Box sx={{ width: '100%' }}>
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{ flexGrow: 1 }}
+              paddingTop={2}
+            >
+              Team {teamWinner} won {score}
+            </Typography>
+            <Typography variant="subtitle2" component="div" paddingBottom={1}>
+              <>
+                {gameData.gameResults.map} -{' '}
+                {gameData.gameResults.duration.minutes} minutes -{' '}
+                {gameData.gameResults.startDate}
+              </>
+            </Typography>
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>

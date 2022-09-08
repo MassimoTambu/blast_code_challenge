@@ -4,33 +4,19 @@ import './App.css';
 import BlastAppBar from './components/app_bar';
 import theme from './theme';
 import { GameDataResponse } from 'shared/models/game_data_response';
-import React from 'react';
-import { Teams } from './teams';
+
 import _ from 'lodash';
-
-export const GameDataContext = React.createContext<GameDataResponse | null>(
-  null
-) as React.Context<GameDataResponse>;
-
-const teamReducer = (state: Teams, _: Teams) => {
-  return {
-    ...state,
-  };
-};
-
-const teamInitialState: Teams = {
-  firstTeam: '',
-  secondTeam: '',
-};
-
-export const TeamsContext = React.createContext<{
-  state: Teams;
-  dispatch: React.Dispatch<Teams>;
-}>({ state: teamInitialState, dispatch: () => null });
+import {
+  GameDataContext,
+  TeamInitialState,
+  TeamReducer,
+  TeamsContext,
+} from './providers';
+import BasicTabs from './components/tab_panel';
 
 function App() {
   const [gameData, setGameData] = useState<GameDataResponse | null>(null);
-  const [teamState, teamDispatch] = useReducer(teamReducer, teamInitialState);
+  const [teamState, teamDispatch] = useReducer(TeamReducer, TeamInitialState);
 
   useEffect(() => {
     async function getStatistics() {
@@ -82,6 +68,7 @@ function App() {
               }}
             >
               <BlastAppBar />
+              <BasicTabs />
             </TeamsContext.Provider>
           </GameDataContext.Provider>
         </ThemeProvider>
