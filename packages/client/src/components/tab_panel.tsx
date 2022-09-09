@@ -3,6 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Scoreboard from '../tabs/scoreboard';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -23,7 +24,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component={'div'}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -47,20 +48,16 @@ export default function BasicTabs() {
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
+        <Tabs value={value} onChange={handleChange}>
+          <Tab label="Scoreboard" {...a11yProps(0)} />
+          <Tab label="Players Stats" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        Item One
+        <Scoreboard />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        Players Stats
       </TabPanel>
     </Box>
   );
