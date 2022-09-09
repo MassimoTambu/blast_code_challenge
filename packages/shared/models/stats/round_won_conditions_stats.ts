@@ -7,7 +7,7 @@ export interface RoundWonConditionsStats {
     winnerCSGOTeam: TeamKinds;
     teamPlayingCT: string;
     teamPlayingTerrorists: string;
-    wonCondition: VictoryKinds;
+    winCondition: VictoryKinds;
     score: Score;
   }[];
 }

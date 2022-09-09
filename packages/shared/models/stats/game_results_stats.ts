@@ -5,4 +5,6 @@ export interface GameResultsStats {
   startDate: string;
   duration: Duration;
   teamWinner: string;
+  teamWinnerMoney: number;
+  teamLoserMoney: number;
 }

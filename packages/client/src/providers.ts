@@ -6,9 +6,9 @@ export const GameDataContext = React.createContext<GameDataResponse | null>(
   null
 ) as React.Context<GameDataResponse>;
 
-export const TeamReducer = (state: Teams, _: Teams) => {
+export const TeamReducer = (_: Teams, action: Teams) => {
   return {
-    ...state,
+    ...action,
   };
 };
 

@@ -11,7 +11,7 @@ let gameData: GameData;
 
 app.use(function (_, res, next) {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
   res.setHeader(
     'Access-Control-Allow-Headers',
@@ -22,14 +22,15 @@ app.use(function (_, res, next) {
 });
 
 app.get('/statistics', async (_: Request, res: Response<GameDataResponse>) => {
+  const playersStats = await gameData.getPlayersStats();
   const gameDataResponse: GameDataResponse = {
-    gameResults: gameData.getGameResults(),
+    gameResults: gameData.getGameResults(playersStats),
     playerWithTheMostKills: gameData.getPlayerWithTheMostKills(),
     playerWithTheMostMoney: gameData.getPlayerWithTheMostMoney(),
     armamentBought: gameData.getListOfArmamentBought(),
     hitCounter: gameData.getHitCounter(),
     mvp: gameData.getMVP(),
-    players: await gameData.getPlayersStats(),
+    players: playersStats,
     roundsResults: gameData.getGeneralRoundStats(),
     roundWonConditions: gameData.getRoundWonConditions(),
     moneySpentPerRound: gameData.getMoneySpentPerRound(),

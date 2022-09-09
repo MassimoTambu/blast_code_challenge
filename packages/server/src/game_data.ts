@@ -124,10 +124,10 @@ export class GameData {
     );
   }
 
-  public getGameResults(): GameResultsStats {
+  public getGameResults(playersStats: PlayerStats[]): GameResultsStats {
     const gameVictoryEvent = this.events.find(
       (e) => e instanceof GameVictoryEvent
-    );
+    ) as GameVictoryEvent | undefined;
     const gameOverEvent = this.events.find((e) => e instanceof GameOverEvent);
     const matchStartEvent = _(this.events).findLast(
       (e) => e instanceof MatchStartEvent
@@ -148,15 +148,38 @@ export class GameData {
     const duration: Duration = _.isUndefined(gameOverEvent)
       ? {}
       : (gameOverEvent as GameOverEvent).duration;
-    const teamWinner = _.isUndefined(gameVictoryEvent)
-      ? ''
-      : (gameVictoryEvent as GameVictoryEvent).teamWinner;
+    const teamWinner = gameVictoryEvent.teamWinner;
 
+    const winnerPlayers = playersStats
+      .filter((p) => p.team === teamWinner)
+      .map((p) => p.name);
+    const loserPlayers = playersStats
+      .filter((p) => p.team !== teamWinner)
+      .map((p) => p.name);
+
+    const moneyCollection = _(this.events).filter(
+      (e) =>
+        e instanceof MoneyChangeEvent && e.kind === MoneyChangeKinds.Increment
+    );
+    const teamWinnerMoney = moneyCollection
+      .filter((e) =>
+        winnerPlayers.some((p) => p === (e as MoneyChangeEvent).name)
+      )
+      .map((e) => (e as MoneyChangeEvent).change)
+      .reduce((acc, m) => acc + m, 0);
+    const teamLoserMoney = moneyCollection
+      .filter((e) =>
+        loserPlayers.some((p) => p === (e as MoneyChangeEvent).name)
+      )
+      .map((e) => (e as MoneyChangeEvent).change)
+      .reduce((acc, m) => acc + m, 0);
     return {
       map,
       startDate,
       duration,
       teamWinner,
+      teamWinnerMoney,
+      teamLoserMoney,
     };
   }
 
@@ -697,7 +720,7 @@ export class GameData {
           winnerCSGOTeam: TeamKinds;
           teamPlayingCT: string;
           teamPlayingTerrorists: string;
-          wonCondition: VictoryKinds;
+          winCondition: VictoryKinds;
           score: Score;
         }>((r) => {
           const roundVictoryEvent = _(r.events)
@@ -749,7 +772,7 @@ export class GameData {
               firstTeamEvent.CSGOTeam === TeamKinds.Terrorist
                 ? firstTeamEvent.team
                 : secondTeamEvent.team,
-            wonCondition: roundVictoryEvent.kind,
+            winCondition: roundVictoryEvent.kind,
             score: roundVictoryEvent.score,
           };
         })
