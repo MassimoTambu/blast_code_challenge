@@ -56,7 +56,7 @@ function stringifyWinCondition(victoryKind: VictoryKinds): string {
   }
 }
 
-const columns: Column[] = [
+const firstTableColumn: Column[] = [
   { id: 1, label: 'n°', minWidth: 10 },
   { id: 2, label: 'CT', minWidth: 90 },
   { id: 3, label: 'Terrorist', minWidth: 90 },
@@ -66,6 +66,17 @@ const columns: Column[] = [
   { id: 7, label: 'Score', minWidth: 80 },
   { id: 8, label: 'CT money spent', minWidth: 80 },
   { id: 9, label: 'Terrorist money spent', minWidth: 80 },
+];
+
+const secondTableColumn: Column[] = [
+  { id: 1, label: 'n°' },
+  { id: 2, label: 'CT flashbangs' },
+  { id: 4, label: 'CT molotov' },
+  { id: 3, label: 'CT smokes' },
+  { id: 5, label: 'Terrorist flashbangs' },
+  { id: 7, label: 'Terrorist molotov' },
+  { id: 6, label: 'Terrorist smokes' },
+  { id: 8, label: 'Total' },
 ];
 
 export default function Rounds() {
@@ -107,7 +118,7 @@ export default function Rounds() {
           <Table sx={{ minWidth: 650 }} size="small" stickyHeader>
             <TableHead>
               <TableRow>
-                {columns.map((column) => (
+                {firstTableColumn.map((column) => (
                   <TableCell
                     key={column.id}
                     style={{ minWidth: column.minWidth }}
@@ -139,36 +150,77 @@ export default function Rounds() {
                     key={`Round#${roundWonCondition.number}`}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
-                      {roundWonCondition.number}
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {roundWonCondition.teamPlayingCT}
-                    </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell>{roundWonCondition.number}</TableCell>
+                    <TableCell>{roundWonCondition.teamPlayingCT}</TableCell>
+                    <TableCell>
                       {roundWonCondition.teamPlayingTerrorists}
                     </TableCell>
-                    <TableCell component="th" scope="row">
-                      {deathsPerRound}
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {winner}
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {winCondition}
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {score}
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {moneySpent.CTMoney}
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {moneySpent.TerroristMoney}
-                    </TableCell>
+                    <TableCell>{deathsPerRound}</TableCell>
+                    <TableCell>{winner}</TableCell>
+                    <TableCell>{winCondition}</TableCell>
+                    <TableCell>{score}</TableCell>
+                    <TableCell>{moneySpent.CTMoney}</TableCell>
+                    <TableCell>{moneySpent.TerroristMoney}</TableCell>
                   </TableRow>
                 );
               })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <Box paddingBottom={4}></Box>
+
+        <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
+          <Table sx={{ minWidth: 650 }} size="small" stickyHeader>
+            <TableHead>
+              <TableRow>
+                {secondTableColumn.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {gameData.throwableArmamentUsedPerRound.rounds.map(
+                (armamentUsedPerRound) => {
+                  return (
+                    <TableRow
+                      key={`Round#${armamentUsedPerRound.number}`}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell align="center">
+                        {armamentUsedPerRound.number}
+                      </TableCell>
+                      <TableCell align="center">
+                        {armamentUsedPerRound.CT.flashbangs}
+                      </TableCell>
+                      <TableCell align="center">
+                        {armamentUsedPerRound.CT.molotov}
+                      </TableCell>
+                      <TableCell align="center">
+                        {armamentUsedPerRound.CT.smokes}
+                      </TableCell>
+                      <TableCell align="center">
+                        {armamentUsedPerRound.Terrorists.flashbangs}
+                      </TableCell>
+                      <TableCell align="center">
+                        {armamentUsedPerRound.Terrorists.molotov}
+                      </TableCell>
+                      <TableCell align="center">
+                        {armamentUsedPerRound.Terrorists.smokes}
+                      </TableCell>
+                      <TableCell align="center">
+                        {armamentUsedPerRound.total}
+                      </TableCell>
+                    </TableRow>
+                  );
+                }
+              )}
             </TableBody>
           </Table>
         </TableContainer>
