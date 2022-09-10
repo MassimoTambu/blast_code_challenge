@@ -28,7 +28,7 @@ There might be multiple “Match_Start” events, but only the last one starts t
 
 ### Client
 
-Typescript with React.js
+Typescript with Vite & React.js
 
 Packages:
 

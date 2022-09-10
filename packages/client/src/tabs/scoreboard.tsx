@@ -8,30 +8,10 @@ import Paper from '@mui/material/Paper';
 import { Divider, Typography } from '@mui/material';
 import { useContext } from 'react';
 import { GameDataContext, TeamsContext } from '../providers';
-import { PlayerStats } from 'shared/models/stats/player_stats';
-import { KDAStats } from 'shared/models/stats/kda_stats';
 import { Box } from '@mui/system';
 import ParagraphTitle from '../components/paragraph_title';
 import BoxCenter from '../components/box_center';
-
-function sumKDA(players: PlayerStats[]): KDAStats {
-  return players
-    .map((p) => p.kda)
-    .reduce(
-      (acc, kda) => {
-        return {
-          assists: acc.assists + kda.assists,
-          deaths: acc.deaths + kda.deaths,
-          kills: acc.kills + kda.kills,
-        };
-      },
-      { assists: 0, kills: 0, deaths: 0 }
-    );
-}
-
-function stringifyKDA(kda: KDAStats) {
-  return `${kda.kills} / ${kda.deaths} / ${kda.assists}`;
-}
+import { stringifyKDA, sumKDA } from '../utils';
 
 export default function Scoreboard() {
   const teams = useContext(TeamsContext);
@@ -50,6 +30,8 @@ export default function Scoreboard() {
 
   const MVP = gameData.mvp.name;
 
+  const hitCounter = gameData.hitCounter.hitCounterStats;
+
   return (
     <BoxCenter>
       <>
@@ -59,7 +41,7 @@ export default function Scoreboard() {
             <Typography component={'span'} fontWeight={'bold'}>
               {gameData.playerWithTheMostKills.player}
             </Typography>{' '}
-            scored the most kills: {gameData.playerWithTheMostKills.kills}
+            has scored the most kills: {gameData.playerWithTheMostKills.kills}
           </>
         </Typography>
         <Typography component={'div'} align={'left'}>
@@ -67,7 +49,7 @@ export default function Scoreboard() {
             <Typography component={'span'} fontWeight={'bold'}>
               {gameData.playerWithTheMostKills.player}
             </Typography>{' '}
-            scored the most money: {gameData.playerWithTheMostMoney.money}
+            has scored the most money: {gameData.playerWithTheMostMoney.money}
           </>
         </Typography>
         <Box paddingBottom={2}></Box>
@@ -132,6 +114,41 @@ export default function Scoreboard() {
             </TableBody>
           </Table>
         </TableContainer>
+
+        <Box paddingBottom={2}></Box>
+        <Typography variant="h5" component="div" align="left" gutterBottom>
+          Hit Counter
+        </Typography>
+        <Typography component={'div'} align={'left'}>
+          <Typography component={'div'}>
+            Head: {hitCounter.head} | Fatal:{' '}
+            {gameData.hitCounter.fatalHeadshots}
+          </Typography>
+          <Typography component={'div'}>
+            Neck: {hitCounter.neck ?? 0}
+          </Typography>
+          <Typography component={'div'}>Chest: {hitCounter.chest}</Typography>
+          <Typography component={'div'}>
+            Stomach: {hitCounter.stomach}
+          </Typography>
+          <Typography component={'div'}>
+            Left arm: {hitCounter['left arm']}
+          </Typography>
+          <Typography component={'div'}>
+            Right arm: {hitCounter['right arm']}
+          </Typography>
+          <Typography component={'div'}>
+            Left leg: {hitCounter['left leg']}
+          </Typography>
+          <Typography component={'div'}>
+            Right leg: {hitCounter['right leg']}
+          </Typography>
+          <Typography component={'div'}>
+            Generic (from grenades): {hitCounter.generic}
+          </Typography>
+        </Typography>
+
+        <Box paddingBottom={4}></Box>
       </>
     </BoxCenter>
   );

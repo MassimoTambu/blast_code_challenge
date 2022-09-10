@@ -11,50 +11,15 @@ import {
   Typography,
 } from '@mui/material';
 import { useContext } from 'react';
-import { TeamKinds, VictoryKinds } from 'shared/models/enums';
-import { Score } from 'shared/models/score';
 import BoxCenter from '../components/box_center';
 import ParagraphTitle from '../components/paragraph_title';
 import { Column } from '../models/column';
 import { GameDataContext } from '../providers';
-
-function stringifyDeathsPerRound(deathsPerRound: {
-  number: number;
-  CT: number;
-  Terrorist: number;
-}) {
-  return `CT: ${deathsPerRound.CT} | T: ${deathsPerRound.Terrorist}`;
-}
-
-function stringifyTeamWinner(roundWonCondition: {
-  number: number;
-  winnerCSGOTeam: TeamKinds;
-  teamPlayingCT: string;
-  teamPlayingTerrorists: string;
-  winCondition: VictoryKinds;
-  score: Score;
-}): string {
-  if (roundWonCondition.winnerCSGOTeam === TeamKinds.CT) {
-    return `${roundWonCondition.teamPlayingCT} (CT)`;
-  } else {
-    return `${roundWonCondition.teamPlayingTerrorists} (Terrorist)`;
-  }
-}
-
-function stringifyWinCondition(victoryKind: VictoryKinds): string {
-  switch (victoryKind) {
-    case VictoryKinds.BombDefused:
-      return 'Bomb defused';
-    case VictoryKinds.BombExploded:
-      return 'Bomb exploded';
-    case VictoryKinds.CTACE:
-      return 'CT ACE';
-    case VictoryKinds.TerroristACE:
-      return 'Terrorist ACE';
-    default:
-      return '';
-  }
-}
+import {
+  stringifyDeathsPerRound,
+  stringifyTeamWinner,
+  stringifyWinCondition,
+} from '../utils';
 
 const firstTableColumn: Column[] = [
   { id: 1, label: 'n°', minWidth: 10 },

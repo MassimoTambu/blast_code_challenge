@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Scoreboard from '../tabs/scoreboard';
 import Rounds from '../tabs/rounds';
+import Players from '../tabs/players';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -62,7 +63,7 @@ export default function BasicTabs() {
         <Rounds />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Players Stats
+        <Players />
       </TabPanel>
     </Box>
   );
