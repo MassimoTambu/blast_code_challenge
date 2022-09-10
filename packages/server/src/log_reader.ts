@@ -4,6 +4,11 @@ import path from 'path';
 import { CREATORS } from './creators';
 import { Event } from './event';
 import { GameData } from './game_data';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export class LogReader {
   private readonly unanalyzedLogsFileName = 'unanalyzed_logs.txt';

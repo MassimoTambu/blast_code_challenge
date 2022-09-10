@@ -33,13 +33,12 @@ Typescript with Vite & React.js
 Packages:
 
 - typescript
-- @types/node
-- express
+- vite
+- @mui/material
 - lodash
-- mocha & chai for tests
-- nodemon: watch for changes and automatically restart when a file is changed
-- ts-node: runs typescript code without having to wait for it be compiled
-- rimraf: rm -rf compatible with every platform
+- react
+- react-dom
+- react-script
 - eslint
 - prettier
 
@@ -62,7 +61,7 @@ Packages:
 
 ## Setup
 
-TODO how to setup repository
+Run `npm i` and then `npm run start` from the root directory
 
 ## How it works
 

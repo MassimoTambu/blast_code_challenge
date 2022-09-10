@@ -5,6 +5,7 @@
     "npm": ">=8.5.5",
     "node": ">=16.15.1"
   },
+  "type": "module",
   "workspaces": [
     "packages/*"
   ],
@@ -18,7 +19,7 @@
     "format": "prettier --write packages"
   },
   "devDependencies": {
-    "lerna": "^5.5.0",
-    "husky": "^8.0.1"
+    "husky": "^8.0.1",
+    "lerna": "^5.5.0"
   }
 }

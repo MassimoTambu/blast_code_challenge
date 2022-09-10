@@ -7,9 +7,10 @@
     "node": ">=16.15.1"
   },
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "nodemon",
-    "build": "rimraf ./build && tsc",
+    "build": "tsc",
     "test": "mocha -r ts-node/register 'tests/**/*.ts'"
   },
   "dependencies": {

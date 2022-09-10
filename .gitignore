@@ -1,6 +1,7 @@
 # Build
 packages/client/build
 packages/server/build
+packages/shared/**/*.js
 
 # Logs
 packages/server/logs/*
