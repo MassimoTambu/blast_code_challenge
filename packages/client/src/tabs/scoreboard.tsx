@@ -11,8 +11,8 @@ import { GameDataContext, TeamsContext } from '../providers';
 import { PlayerStats } from 'shared/models/stats/player_stats';
 import { KDAStats } from 'shared/models/stats/kda_stats';
 import { Box } from '@mui/system';
-import Rounds from '../components/rounds';
 import ParagraphTitle from '../components/paragraph_title';
+import BoxCenter from '../components/box_center';
 
 function sumKDA(players: PlayerStats[]): KDAStats {
   return players
@@ -51,11 +51,35 @@ export default function Scoreboard() {
   const MVP = gameData.mvp.name;
 
   return (
-    <Box alignSelf={'center'} paddingLeft={'20%'} paddingRight={'20%'}>
+    <BoxCenter>
       <>
         <ParagraphTitle name="Scoreboard" />
+        <Typography component={'div'} align={'left'}>
+          <>
+            <Typography component={'span'} fontWeight={'bold'}>
+              {gameData.playerWithTheMostKills.player}
+            </Typography>{' '}
+            scored the most kills: {gameData.playerWithTheMostKills.kills}
+          </>
+        </Typography>
+        <Typography component={'div'} align={'left'}>
+          <>
+            <Typography component={'span'} fontWeight={'bold'}>
+              {gameData.playerWithTheMostKills.player}
+            </Typography>{' '}
+            scored the most money: {gameData.playerWithTheMostMoney.money}
+          </>
+        </Typography>
+        <Box paddingBottom={2}></Box>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>Team</TableCell>
+                <TableCell>KDA</TableCell>
+                <TableCell>Money earned</TableCell>
+              </TableRow>
+            </TableHead>
             <TableHead>
               <TableRow>
                 <TableCell>{firstTeam}</TableCell>
@@ -73,7 +97,11 @@ export default function Scoreboard() {
                     {row.name}
                   </TableCell>
                   <TableCell>{stringifyKDA(row.kda)}</TableCell>
-                  <TableCell>{row.name === MVP ? 'MVP' : ''}</TableCell>
+                  <TableCell>
+                    <Typography component={'span'} fontWeight={'500'}>
+                      {row.name === MVP ? 'MVP' : ''}
+                    </Typography>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -98,31 +126,17 @@ export default function Scoreboard() {
                     {row.name}
                   </TableCell>
                   <TableCell>{stringifyKDA(row.kda)}</TableCell>
-                  <TableCell>{row.name === MVP ? 'MVP' : ''}</TableCell>
+                  <TableCell>
+                    <Typography component={'span'} fontWeight={'500'}>
+                      {row.name === MVP ? 'MVP' : ''}
+                    </Typography>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-        <Box paddingBottom={4}></Box>
-        <Typography component={'div'} align={'left'}>
-          <>
-            <Typography component={'span'} fontWeight={'bold'}>
-              {gameData.playerWithTheMostKills.player}
-            </Typography>{' '}
-            scored the most kills: {gameData.playerWithTheMostKills.kills}
-          </>
-        </Typography>
-        <Typography component={'div'} align={'left'}>
-          <>
-            <Typography component={'span'} fontWeight={'bold'}>
-              {gameData.playerWithTheMostKills.player}
-            </Typography>{' '}
-            scored the most money: {gameData.playerWithTheMostMoney.money}
-          </>
-        </Typography>
-        <Rounds />
       </>
-    </Box>
+    </BoxCenter>
   );
 }

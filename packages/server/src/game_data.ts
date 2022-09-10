@@ -31,6 +31,7 @@ import {
 } from 'shared/models/stats/hit_counter_stats';
 import { MVPStats } from 'shared/models/stats/mvp_stats';
 import { ArmamentStats } from 'shared/models/stats/armament_stats';
+import { DeathsPerRoundStats } from 'shared/models/stats/deaths_per_round_stats';
 import { PlayerSwitchedTeamEvent } from './player_actions/player_switched_team_event';
 import { KDAStats } from 'shared/models/stats/kda_stats';
 import { AssistedKillingEvent } from './player_actions/assisted_killing_event';
@@ -709,6 +710,34 @@ export class GameData {
     return {
       longestRound,
       shortestRound,
+    };
+  }
+
+  public getDeathsPerRound(): DeathsPerRoundStats {
+    const rounds = this.eventsPerRound.map<{
+      number: number;
+      CT: number;
+      Terrorist: number;
+    }>((r) => {
+      const killedCollection = _(r.events).filter(
+        (e) => e instanceof KilledEvent
+      );
+      const CTDeaths = killedCollection
+        .filter((e) => (e as KilledEvent).team === TeamKinds.Terrorist)
+        .value().length;
+      const TerroristDeaths = killedCollection
+        .filter((e) => (e as KilledEvent).team === TeamKinds.CT)
+        .value().length;
+
+      return {
+        number: r.number,
+        CT: CTDeaths,
+        Terrorist: TerroristDeaths,
+      };
+    });
+
+    return {
+      rounds,
     };
   }
 

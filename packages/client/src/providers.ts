@@ -1,6 +1,6 @@
 import React from 'react';
 import { GameDataResponse } from 'shared/models/game_data_response';
-import { Teams } from './teams';
+import { Teams } from './models/teams';
 
 export const GameDataContext = React.createContext<GameDataResponse | null>(
   null

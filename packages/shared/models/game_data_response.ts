@@ -1,4 +1,5 @@
 import { ArmamentStats } from './stats/armament_stats';
+import { DeathsPerRoundStats } from './stats/deaths_per_round_stats';
 import { GameResultsStats } from './stats/game_results_stats';
 import { GeneralRoundStats } from './stats/general_round_stats';
 import { HitCounterStatsWithFatalHeadshots } from './stats/hit_counter_stats';
@@ -20,6 +21,7 @@ export interface GameDataResponse {
   armamentBought: ArmamentStats[];
   players: PlayerStats[];
   roundsResults: GeneralRoundStats;
+  deathsPerRound: DeathsPerRoundStats;
   moneySpentPerRound: MoneySpentPerRoundStats;
   throwableArmamentUsedPerRound: ThrowableArmamentUsedPerRoundStats;
 }

@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import { GameData } from './game_data';
 import { LogReader } from './log_reader';
 import { GameDataResponse } from 'shared/models/game_data_response';
+import _ from 'lodash';
 
 const app: Application = express();
 const port = 4000;
@@ -9,9 +10,13 @@ const port = 4000;
 const logReader = new LogReader();
 let gameData: GameData;
 
-app.use(function (_, res, next) {
+app.use(function (req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
+  const allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:3000'];
+  const origin = req.headers.origin;
+  if (!_.isUndefined(origin) && allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET');
   res.setHeader(
     'Access-Control-Allow-Headers',
@@ -32,6 +37,7 @@ app.get('/statistics', async (_: Request, res: Response<GameDataResponse>) => {
     mvp: gameData.getMVP(),
     players: playersStats,
     roundsResults: gameData.getGeneralRoundStats(),
+    deathsPerRound: gameData.getDeathsPerRound(),
     roundWonConditions: gameData.getRoundWonConditions(),
     moneySpentPerRound: gameData.getMoneySpentPerRound(),
     throwableArmamentUsedPerRound: gameData.getThrowableArmamentsUsedPerRound(),
